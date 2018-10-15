@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="ASP.NET MVC," />
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hydro&#39;s Blog">
-<meta property="og:url" content="https://hydrochoy.github.io/index.html">
+<meta name="description" content="個別Action 定義的Routing - Attribute Routing 在ASP.NET MVC 的世界裡，有兩種方法去設定Routing，第一種是於App_Start 的 RouteConfig.cs 中作全局性的設定:  12345routes.MapRoute(   name: &quot;Default&quot;,    url: &quot;&amp;#123;controller&amp;#125;/&amp;#123;acti">
+<meta name="keywords" content="ASP.NET MVC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="淺談 ASP.NET MVC 中的 Attribute Routing (Regex)">
+<meta property="og:url" content="https://hydrochoy.github.io/2018/10/15/Regex-Attribute-Routing-in-ASP-NET-MVC/index.html">
 <meta property="og:site_name" content="Hydro&#39;s Blog">
+<meta property="og:description" content="個別Action 定義的Routing - Attribute Routing 在ASP.NET MVC 的世界裡，有兩種方法去設定Routing，第一種是於App_Start 的 RouteConfig.cs 中作全局性的設定:  12345routes.MapRoute(   name: &quot;Default&quot;,    url: &quot;&amp;#123;controller&amp;#125;/&amp;#123;acti">
 <meta property="og:locale" content="zh-HK">
+<meta property="og:updated_time" content="2018-10-15T18:35:10.656Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hydro&#39;s Blog">
+<meta name="twitter:title" content="淺談 ASP.NET MVC 中的 Attribute Routing (Regex)">
+<meta name="twitter:description" content="個別Action 定義的Routing - Attribute Routing 在ASP.NET MVC 的世界裡，有兩種方法去設定Routing，第一種是於App_Start 的 RouteConfig.cs 中作全局性的設定:  12345routes.MapRoute(   name: &quot;Default&quot;,    url: &quot;&amp;#123;controller&amp;#125;/&amp;#123;acti">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://hydrochoy.github.io/"/>
+  <link rel="canonical" href="https://hydrochoy.github.io/2018/10/15/Regex-Attribute-Routing-in-ASP-NET-MVC/"/>
 
 
 
 
 
-  <title>Hydro's Blog</title>
+  <title>淺談 ASP.NET MVC 中的 Attribute Routing (Regex) | Hydro's Blog</title>
   
 
 
@@ -140,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +218,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/15/Regex-Attribute-Routing-in-ASP-NET-MVC/" itemprop="url">淺談 ASP.NET MVC 中的 Attribute Routing (Regex)</a></h1>
+          <h1 class="post-title" itemprop="name headline">淺談 ASP.NET MVC 中的 Attribute Routing (Regex)</h1>
         
 
         <div class="post-meta">
@@ -298,9 +300,7 @@
       
 
       
-        
-          
-            <h2 id="個別Action-定義的Routing-Attribute-Routing"><a href="#個別Action-定義的Routing-Attribute-Routing" class="headerlink" title="個別Action 定義的Routing - Attribute Routing"></a>個別Action 定義的Routing - Attribute Routing</h2><p> 在ASP.NET MVC 的世界裡，有兩種方法去設定Routing，第一種是於App_Start 的 RouteConfig.cs 中作全局性的設定: </p>
+        <h2 id="個別Action-定義的Routing-Attribute-Routing"><a href="#個別Action-定義的Routing-Attribute-Routing" class="headerlink" title="個別Action 定義的Routing - Attribute Routing"></a>個別Action 定義的Routing - Attribute Routing</h2><p> 在ASP.NET MVC 的世界裡，有兩種方法去設定Routing，第一種是於App_Start 的 RouteConfig.cs 中作全局性的設定: </p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">routes.MapRoute(</span><br><span class="line">   name: <span class="string">"Default"</span>,</span><br><span class="line">    url: <span class="string">"&#123;controller&#125;/&#123;action&#125;/&#123;id&#125;"</span>,</span><br><span class="line">    defaults: <span class="keyword">new</span> &#123; controller = <span class="string">"Home"</span>, action = <span class="string">"Index"</span>, id = UrlParameter.Optional &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <p>而第二種是於RouteConfig.cs 加一句</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">routes.MapMvcAttributeRoutes();</span><br></pre></td></tr></table></figure>
@@ -350,8 +350,6 @@
 <h2 id="小插曲-RegexOptions-IgnoreCase"><a href="#小插曲-RegexOptions-IgnoreCase" class="headerlink" title="小插曲 - RegexOptions.IgnoreCase"></a>小插曲 - RegexOptions.IgnoreCase</h2><p>當來到這一步，我們會知道無論是About/Bob 或是About/boB，其實都會通過上面的constraint，這歸功於默認使用的Regexptions.IgnoreCase，不過如果你堅持只有Bob 和Alice 才可以通過，什麼alice, bOB 都不可以通過的話，就要用regular expression 本身的不ignore case 方法: (?-i)，以上的例子就會變成</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Route(<span class="meta-string">"about/&#123;name:regex((?-i)^(Alice|Bob)$)&#125;"</span>)</span>]</span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
     
@@ -366,14 +364,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/ASP-NET-MVC/" rel="tag"># ASP.NET MVC</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -383,10 +387,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -394,6 +399,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -414,8 +423,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -466,6 +484,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#個別Action-定義的Routing-Attribute-Routing"><span class="nav-number">1.</span> <span class="nav-text">個別Action 定義的Routing - Attribute Routing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#令-Routing-入正軌-Routing-Constraint"><span class="nav-number">2.</span> <span class="nav-text">令 Routing 入正軌 - Routing Constraint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regex-in-Attribute-Routing-尋根之旅"><span class="nav-number">3.</span> <span class="nav-text">Regex in Attribute Routing 尋根之旅</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小插曲-RegexOptions-IgnoreCase"><span class="nav-number">4.</span> <span class="nav-text">小插曲 - RegexOptions.IgnoreCase</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -606,6 +640,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
